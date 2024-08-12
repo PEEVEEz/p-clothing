@@ -65,12 +65,27 @@ export function RadialMenuItem({
     svgCenterY,
   ]);
 
+  const imageSize = 60;
   const { x, y } = useMemo<{ x: number; y: number }>(() => {
     const angle = (radiansPerItem + radiansGap) * (index + 0.5);
-    const x =
-      svgCenterX + ((innerRadius + outerRadius) / 2) * Math.cos(angle) - 35;
-    const y =
-      svgCenterY + ((innerRadius + outerRadius) / 2) * Math.sin(angle) - 35;
+
+    let x =
+      svgCenterX +
+      ((innerRadius + outerRadius) / 2) * Math.cos(angle) -
+      imageSize / 2;
+    let y =
+      svgCenterY +
+      ((innerRadius + outerRadius) / 2) * Math.sin(angle) -
+      imageSize / 2;
+
+    // shit
+    if (item.name === "top") {
+      x = x + 9;
+      y = y - 2;
+    } else if (item.name === "vest") {
+      x = x + 2;
+      y = y - 3;
+    }
 
     return { x, y };
   }, [
@@ -81,6 +96,7 @@ export function RadialMenuItem({
     radiansPerItem,
     svgCenterX,
     svgCenterY,
+    item.name,
   ]);
 
   const handleClick = () => {
@@ -88,7 +104,7 @@ export function RadialMenuItem({
   };
 
   return (
-    <g key={index} onClick={handleClick} className="cursor-pointer">
+    <g key={index} onClick={handleClick} className="cursor-pointer group">
       <path
         fill="none"
         d={borderPath}
@@ -97,7 +113,14 @@ export function RadialMenuItem({
       />
 
       <path d={sectorPath} fill={fillColor} />
-      <image x={x} y={y} className="size-16" href={item.image} />
+      <image
+        x={x}
+        y={y}
+        href={item.image}
+        width={imageSize}
+        height={imageSize}
+        className="group-active:scale-[1.005] origin-center transition-transform"
+      />
     </g>
   );
 }
