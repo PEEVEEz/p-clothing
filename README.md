@@ -9,7 +9,7 @@ Open the clothing menu by holding **Y**, or if enabled you can also use commands
 
 ![juu](https://unityx.fi/fivem/VAATEMENU.gif)
 
-## [Releases](https://github.com/PEEVEEz/p-clothing/releases) [Suopport Discord](https://discord.gg/jRgkb5sM3w) 
+## [Releases](https://github.com/PEEVEEz/p-clothing/releases) | [Suopport Discord](https://discord.gg/jRgkb5sM3w) 
 
 
 ## Dependencies
