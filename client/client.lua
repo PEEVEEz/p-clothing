@@ -270,24 +270,36 @@ local function toggleProps(which)
     end
 end
 
+---@param name string
+---@param data unknown?
+---@return {success:boolean, state?:boolean}
+local function action(name, data)
+    if name == "reset" then
+        resetClothing(true)
+        return { success = true }
+    elseif name == "cursor" then
+        if data then
+            SetCursorLocation(data.x, data.y)
+            return { success = true }
+        end
+
+        return { success = false }
+    end
+
+
+    return drawables[name].prop ~= nil
+        and toggleProps(name)
+        or toggleClothing(name)
+end
+
 AddEventHandler('onResourceStop', function(resource)
     if resource ~= GetCurrentResourceName() then return end
     resetClothing()
 end)
 
 RegisterNUICallback("action", function(body, resultCallback)
-    if body.name == "reset" then
-        resetClothing(true)
-        resultCallback({ success = true })
-        return
-    elseif body.name == "cursor" then
-        SetCursorLocation(body.x, body.y)
-        resultCallback({ success = true })
-        return
-    end
-
-    local data = drawables[body.name].prop ~= nil and toggleProps(body.name) or toggleClothing(body.name)
-    resultCallback(data)
+    local result = action(body.name, body)
+    resultCallback(result)
 end)
 
 local ready = false
@@ -323,7 +335,6 @@ local function toggleOpen()
     })
 end
 
--- Keybind
 lib.addKeybind({
     name = 'clothing',
     onPressed = toggleOpen,
@@ -331,3 +342,16 @@ lib.addKeybind({
     description = 'open clothing menu',
     onReleased = config.toggle and nil or toggleOpen
 })
+
+if config.commands then
+    for name, _ in pairs(drawables) do
+        local commandName = locale(("command_%s"):format(name))
+
+        RegisterCommand(commandName, function()
+            action(name)
+        end, false)
+
+        TriggerEvent('chat:addSuggestion', ("/%s"):format(commandName), locale(("%s_description"):format(commandName)),
+            {})
+    end
+end

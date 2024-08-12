@@ -2,5 +2,53 @@
   "no_variants": "Tälle ei näytä olevan mitään vaihtoehtoja.",
   "not_allowed_ped": "Tämä pedi ei salli tätä vaihtoehtoa.",
   "already_wearing": "Sinulla on jo tämä päälläsi.",
-  "nothing_to_remove": "Sinulla ei näytä olevan mitään poistettavaa."
+  "nothing_to_remove": "Sinulla ei näytä olevan mitään poistettavaa.",
+
+  "command_top": "tpaita",
+  "command_top_description": "Vaihda tai poista tpaita.",
+
+  "command_gloves": "hanskat",
+  "command_gloves_description": "Vaihda tai poista hanskat.",
+
+  "command_shoes": "kengät",
+  "command_shoes_description": "Vaihda tai poista kengät.",
+
+  "command_neck": "koru",
+  "command_neck_description": "Vaihda tai poista koru.",
+
+  "command_vest": "liivi",
+  "command_vest_description": "Vaihda tai poista liivi.",
+
+  "command_bag": "laukku",
+  "command_bag_description": "Avaa tai sulje laukku.",
+
+  "command_mask": "naamio",
+  "command_mask_description": "Vaihda tai poista naamio.",
+
+  "command_hair": "hiukset",
+  "command_hair_description": "Vaihda tai muotoile hiuksesi.",
+
+  "command_shirt": "paita",
+  "command_shirt_description": "Vaihda tai poista paita.",
+
+  "command_pants": "housut",
+  "command_pants_description": "Vaihda tai poista housut.",
+
+  "command_visor": "visiiri",
+  "command_visor_description": "Vaihda tai poista hattu / visiiri.",
+
+  "command_hat": "hattu",
+  "command_hat_description": "Vaihda tai poista hattu.",
+
+  "command_glasses": "lasit",
+  "command_glasses_description": "Vaihda tai poista lasit.",
+
+  "command_ear": "korvakorut",
+  "command_ear_description": "Vaihda tai poista korvakorut.",
+
+  "command_watch": "kello",
+  "command_watch_description": "Vaihda tai poista kello.",
+
+  "command_bracelet": "rannekoru",
+  "command_bracelet_description": "Vaihda tai poista rannekoru."
 }

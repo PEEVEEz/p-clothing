@@ -2,5 +2,53 @@
   "no_variants": "There don't seem to be any variants for this.",
   "not_allowed_ped": "This ped model does not allow for this option.",
   "already_wearing": "You are already wearing that.",
-  "nothing_to_remove": "You don't appear to have anything to remove."
+  "nothing_to_remove": "You don't appear to have anything to remove.",
+
+  "command_top": "top",
+  "command_top_description": "Change or toggle your top clothing.",
+
+  "command_gloves": "gloves",
+  "command_gloves_description": "Change or toggle your gloves.",
+
+  "command_shoes": "shoes",
+  "command_shoes_description": "Change or toggle your shoes.",
+
+  "command_neck": "neck",
+  "command_neck_description": "Change or toggle your neck accessory.",
+
+  "command_vest": "vest",
+  "command_vest_description": "Change or toggle your vest.",
+
+  "command_bag": "bag",
+  "command_bag_description": "Open or close your bag.",
+
+  "command_mask": "mask",
+  "command_mask_description": "Change or toggle your mask.",
+
+  "command_hair": "hair",
+  "command_hair_description": "Change or style your hair.",
+
+  "command_shirt": "shirt",
+  "command_shirt_description": "Change or toggle your shirt.",
+
+  "command_pants": "pants",
+  "command_pants_description": "Change or toggle your pants.",
+
+  "command_visor": "visor",
+  "command_visor_description": "Toggle or change your hat / visor.",
+
+  "command_hat": "hat",
+  "command_hat_description": "Toggle or change your hat.",
+
+  "command_glasses": "glasses",
+  "command_glasses_description": "Toggle or change your glasses.",
+
+  "command_ear": "ear",
+  "command_ear_description": "Toggle or change your ear accessory.",
+
+  "command_watch": "watch",
+  "command_watch_description": "Toggle or change your watch.",
+
+  "command_bracelet": "bracelet",
+  "command_bracelet_description": "Toggle or change your bracelet."
 }
