@@ -1,5 +1,5 @@
 ## Description
-p-clothing is a fully recorded and improved version of the famous [dpclothing](https://forum.cfx.re/t/dpclothing-1-0-3-clothing-variations-and-toggles-gloves-vest-top-hair-bag-and-more/1326317) now fully build in react
+p-clothing is a fully re-coded and improved version of the famous [dpclothing](https://forum.cfx.re/t/dpclothing-1-0-3-clothing-variations-and-toggles-gloves-vest-top-hair-bag-and-more/1326317) now fully build in react
 
 
 ## Instructions
