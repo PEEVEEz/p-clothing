@@ -1,4 +1,4 @@
-local variations = require "data.variations"
+local variations = require "shared.variations"
 
 return {
     ["top"] = {

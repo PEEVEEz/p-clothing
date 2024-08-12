@@ -14,3 +14,8 @@ export type Response = {
   success: boolean;
   state?: boolean;
 };
+
+export type Position = {
+  x: number;
+  y: number;
+};

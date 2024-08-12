@@ -1,26 +1,26 @@
 local lastEquipped = {}
-local config = require "config"
-local drawables = require "data.drawables"
+local config = require "shared.config"
+local drawables = require "shared.drawables"
 
----@param e any
+---@param anim unknown
 ---@param cb function
-local function playToggleAnim(e, cb)
-    lib.requestAnimDict(e.dict)
-    if cache.vehicle then e.flag = 51 end
-    TaskPlayAnim(cache.ped, e.dict, e.name, 3.0, 3.0, e.dur, e.flag, 0, false, false, false)
+local function playToggleAnim(anim, cb)
+    lib.requestAnimDict(anim.dict)
+    if cache.vehicle then anim.flag = 51 end
+    TaskPlayAnim(cache.ped, anim.dict, anim.name, 3.0, 3.0, anim.dur, anim.flag, 0, false, false, false)
 
-    Wait(e.dur)
+    Wait((anim.dur - 500) < 500 and 500 or (anim.dur - 500))
     cb()
 end
 
-local function notify(description)
-    lib.notify({ description = description, icon = "shirt" })
+---@param key string
+local function notify(key)
+    lib.notify({ description = locale(key), icon = "shirt" })
 end
 
----@param ped any
 ---@return "male" | "female"
-local function getGender(ped)
-    local model = GetEntityModel(ped)
+local function getGender()
+    local model = GetEntityModel(cache.ped)
     return model == "mp_m_freemode_01" and "female" or "male"
 end
 
@@ -54,24 +54,21 @@ local function toggleClothing(which)
         }
     end
 
-    local ped = cache.ped
-    local cur = { -- Let's check what we are currently wearing.
-        drawable = GetPedDrawableVariation(ped, toggle.drawable),
+    local cur = {
         id = toggle.drawable,
-        ped = ped,
-        texture = GetPedTextureVariation(ped, toggle.drawable),
+        texture = GetPedTextureVariation(cache.ped, toggle.drawable),
+        drawable = GetPedDrawableVariation(cache.ped, toggle.drawable),
     }
 
-    local gender = getGender(ped)
+    local gender = getGender()
 
-    if which ~= "mask" then
-        if not gender then
-            notify("Tämä ped-malli ei salli tätä vaihtoehtoa")
-            return {
-                success = false,
-                state = false,
-            }
-        end
+    if which ~= "mask" and not gender then
+        notify("not_allowed_ped")
+
+        return {
+            success = false,
+            state = false,
+        }
     end
 
     local tbl = toggle.table[gender]
@@ -81,7 +78,9 @@ local function toggleClothing(which)
                 if not toggle.remember then
                     if k == cur.drawable then
                         playToggleAnim(toggle.anim, function()
-                            SetPedComponentVariation(ped, toggle.drawable, v, cur.texture, 0)
+                            if type(v) == "number" then
+                                SetPedComponentVariation(cache.ped, toggle.drawable, v, cur.texture, 0)
+                            end
                         end)
 
                         return {
@@ -94,7 +93,7 @@ local function toggleClothing(which)
                         if k == cur.drawable then
                             playToggleAnim(toggle.anim, function()
                                 lastEquipped[which] = cur
-                                SetPedComponentVariation(ped, toggle.drawable, v, cur.texture, 0)
+                                SetPedComponentVariation(cache.ped, toggle.drawable, v, cur.texture, 0)
                             end)
 
                             return {
@@ -105,7 +104,7 @@ local function toggleClothing(which)
                     else
                         local last = lastEquipped[which]
                         playToggleAnim(toggle.anim, function()
-                            SetPedComponentVariation(ped, toggle.drawable, last.drawable, last.texture, 0)
+                            SetPedComponentVariation(cache.ped, toggle.drawable, last.drawable, last.texture, 0)
                             lastEquipped[which] = false
                         end)
 
@@ -118,7 +117,7 @@ local function toggleClothing(which)
             end
         end
 
-        notify("Tästä ei näytä olevan vaihtoehtoja")
+        notify("no_variants")
         return {
             success = false,
             state = false,
@@ -130,19 +129,19 @@ local function toggleClothing(which)
                     lastEquipped[which] = cur
 
                     if type(tbl) == "number" then
-                        SetPedComponentVariation(ped, toggle.drawable, tbl, 0, 0)
+                        SetPedComponentVariation(cache.ped, toggle.drawable, tbl, 0, 0)
                     end
 
                     if toggle.table.extra then
                         local extraToggled = toggle.table.extra
                         for _, v in pairs(extraToggled) do
                             local extraCur = {
-                                drawable = GetPedDrawableVariation(ped, v.drawable),
-                                texture = GetPedTextureVariation(ped, v.drawable),
-                                id = v.drawable
+                                id = v.drawable,
+                                texture = GetPedTextureVariation(cache.ped, v.drawable),
+                                drawable = GetPedDrawableVariation(cache.ped, v.drawable),
                             }
 
-                            SetPedComponentVariation(ped, v.drawable, v.id, v.tex, 0)
+                            SetPedComponentVariation(cache.ped, v.drawable, v.id, v.tex, 0)
                             lastEquipped[v.name] = extraCur
                         end
                     end
@@ -157,14 +156,15 @@ local function toggleClothing(which)
             local last = lastEquipped[which]
 
             playToggleAnim(toggle.anim, function()
-                SetPedComponentVariation(ped, toggle.drawable, last.drawable, last.texture, 0)
+                SetPedComponentVariation(cache.ped, toggle.drawable, last.drawable, last.texture, 0)
                 lastEquipped[which] = false
+
                 if toggle.table.extra then
                     local extraToggled = toggle.table.extra
                     for _, v in pairs(extraToggled) do
                         if lastEquipped[v.name] then
                             last = lastEquipped[v.name]
-                            SetPedComponentVariation(ped, last.id, last.drawable, last.texture, 0)
+                            SetPedComponentVariation(cache.ped, last.id, last.drawable, last.texture, 0)
                             lastEquipped[v.name] = false
                         end
                     end
@@ -178,7 +178,7 @@ local function toggleClothing(which)
         end
     end
 
-    notify('Sinulla on jo tämä päälläsi')
+    notify("already_wearing")
     return {
         success = false,
         state = false
@@ -196,19 +196,17 @@ local function toggleProps(which)
         }
     end
 
-    local ped = cache.ped
     local cur = {
         id = prop.prop,
-        ped = ped,
-        prop = GetPedPropIndex(ped, prop.prop),
-        texture = GetPedPropTextureIndex(ped, prop.prop),
+        prop = GetPedPropIndex(cache.ped, prop.prop),
+        texture = GetPedPropTextureIndex(cache.ped, prop.prop),
     }
 
     if not prop.variants then
         if cur.prop ~= -1 then
             playToggleAnim(prop.anim.off, function()
                 lastEquipped[which] = cur
-                ClearPedProp(ped, prop.prop)
+                ClearPedProp(cache.ped, prop.prop)
             end)
 
             return {
@@ -220,7 +218,7 @@ local function toggleProps(which)
 
             if last then
                 playToggleAnim(prop.anim.on,
-                    function() SetPedPropIndex(ped, prop.prop, last.prop, last.texture, true) end)
+                    function() SetPedPropIndex(cache.ped, prop.prop, last.prop, last.texture, true) end)
                 lastEquipped[which] = false
 
                 return {
@@ -230,16 +228,17 @@ local function toggleProps(which)
             end
         end
 
-        notify("Sinulla ei näytä olevan mitään poistettavaa")
+        notify("nothing_to_remove")
+
         return {
             success = false,
             state = false,
         }
     else
-        local gender = getGender(ped)
+        local gender = getGender()
 
         if not gender then
-            notify("Tämä ped-malli ei salli tätä vaihtoehtoa")
+            notify("not_allowed_ped")
 
             return {
                 success = false,
@@ -251,7 +250,7 @@ local function toggleProps(which)
         for k, v in pairs(variations) do
             if cur.prop == k then
                 playToggleAnim(prop.anim.on, function()
-                    SetPedPropIndex(ped, prop.prop, v, cur.texture, true)
+                    SetPedPropIndex(cache.ped, prop.prop, v, cur.texture, true)
                 end)
 
                 return {
@@ -261,7 +260,7 @@ local function toggleProps(which)
             end
         end
 
-        notify("Tästä ei näytä olevan vaihtoehtoja")
+        notify("no_variants")
 
         return {
             success = false,
@@ -280,14 +279,27 @@ RegisterNUICallback("action", function(body, resultCallback)
         resetClothing(true)
         resultCallback({ success = true })
         return
+    elseif body.name == "cursor" then
+        SetCursorLocation(body.x, body.y)
+        resultCallback({ success = true })
+        return
     end
 
     local data = drawables[body.name].prop ~= nil and toggleProps(body.name) or toggleClothing(body.name)
     resultCallback(data)
 end)
 
+local ready = false
 local openState = false
 local function toggleOpen()
+    if not ready then
+        ready = true
+        SendNUIMessage({
+            action = "position",
+            data = config.position
+        })
+    end
+
     openState = not openState
 
     SetNuiFocus(openState, openState)

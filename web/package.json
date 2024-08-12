@@ -1,7 +1,7 @@
 {
-  "name": "web",
+  "name": "p-clothing",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,16 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@spaceymonk/react-radial-menu": "^2.0.6",
-    "clsx": "^2.1.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-transition-group": "^4.4.5"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@types/react-transition-group": "^4.4.10",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
     "@vitejs/plugin-react": "^4.3.1",
