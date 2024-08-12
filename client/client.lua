@@ -1,3 +1,4 @@
+lib.locale()
 local lastEquipped = {}
 local config = require "shared.config"
 local drawables = require "shared.drawables"
