@@ -1,0 +1,41 @@
+name: Build UI and Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Trigger only on tags like v1.0.0
+  workflow_dispatch: # Allows manual triggering from the GitHub Actions UI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.6.0'
+
+      - name: Install dependencies
+        run: npm install --prefix web
+
+      - name: Build UI
+        run: npm run build --prefix web
+
+      - name: Clean up unnecessary files
+        run: |
+          find web/ -mindepth 1 -maxdepth 1 ! -name 'build' -exec rm -rf {} +
+
+      - name: Create a release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}  # Use the tag that triggered the action
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          files: web/build/*
