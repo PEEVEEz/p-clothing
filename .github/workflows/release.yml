@@ -10,12 +10,12 @@ on:
         description: 'Tag name for the release'
         required: true
         type: string
-      release_name:
-        description: 'Release name'
+      release_description:
+        description: 'Description for the release'
         required: false
         type: string
-        default: 'Release'
-
+        default: 'Automatic release created by GitHub Actions'
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -54,7 +54,8 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           automatic_release_tag: ${{ github.event.inputs.tag_name || github.ref_name }}
-          title: ${{ github.event.inputs.release_name || 'Release' }} ${{ github.event.inputs.tag_name || github.ref_name }}
+          title: ${{ github.event.inputs.tag_name || github.ref_name }}
+          body: ${{ github.event.inputs.release_description || 'Automatic release created by GitHub Actions' }}
           files: p-clothing.zip
           draft: false
           prerelease: false
