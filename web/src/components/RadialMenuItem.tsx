@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import type { Item } from "../types";
-import { fillColor, strokeColor, strokeColorActive } from "../data";
+import { fillColor, strokeColor } from "../data";
 
 type Props = {
   item: Item;
@@ -9,6 +9,7 @@ type Props = {
   totalAngle: number;
   svgCenterX: number;
   svgCenterY: number;
+  activeColor: string;
   radiansPerItem: number;
   handleAction: (name: string) => void;
 };
@@ -19,6 +20,7 @@ export function RadialMenuItem({
   isActive,
   svgCenterX,
   svgCenterY,
+  activeColor,
   handleAction,
   radiansPerItem,
 }: Props) {
@@ -109,7 +111,7 @@ export function RadialMenuItem({
         fill="none"
         d={borderPath}
         strokeWidth="7"
-        stroke={!isActive ? strokeColor : strokeColorActive}
+        stroke={!isActive ? strokeColor : activeColor}
       />
 
       <path d={sectorPath} fill={fillColor} />

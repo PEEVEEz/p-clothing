@@ -308,8 +308,11 @@ local function toggleOpen()
     if not ready then
         ready = true
         SendNUIMessage({
-            action = "position",
-            data = config.position
+            action = "setup",
+            data = {
+                position = config.position,
+                activeColor = config.activeColor
+            }
         })
     end
 

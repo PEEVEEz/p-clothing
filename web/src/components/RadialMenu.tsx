@@ -1,9 +1,9 @@
 import { items } from "../data";
+import type { Position } from "../types";
 import { CenterItems } from "./CenterItems";
 import { RadialMenuItem } from "./RadialMenuItem";
 import { action, isEnvBrowser, useNuiEvent } from "../utils";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Position } from "../types";
 
 export function RadialMenu() {
   const width = 560;
@@ -17,6 +17,7 @@ export function RadialMenu() {
   const [open, setOpen] = useState(isEnvBrowser() ? true : false);
   const [position, setPosition] = useState<Position>({ x: 70, y: 50 });
   const [active, setActive] = useState<{ [name: string]: boolean }>({});
+  const [activeColor, setActiveColor] = useState("rgba(44, 176, 252, 0.4)");
 
   const handleAction = useCallback(
     async (name: string, data?: unknown) => {
@@ -43,8 +44,9 @@ export function RadialMenu() {
     setOpen(state);
   });
 
-  useNuiEvent<Position>("position", (state) => {
-    setPosition(state);
+  useNuiEvent<{ position: Position; activeColor: string }>("setup", (state) => {
+    setPosition(state.position);
+    setActiveColor(state.activeColor);
   });
 
   useEffect(() => {
@@ -79,13 +81,18 @@ export function RadialMenu() {
               svgCenterX={width / 2}
               svgCenterY={height / 2}
               totalAngle={totalAngle}
+              activeColor={activeColor}
               handleAction={handleAction}
               isActive={active[item.name]}
               radiansPerItem={radiansPerItem}
             />
           ))}
 
-          <CenterItems active={active} handleAction={handleAction} />
+          <CenterItems
+            active={active}
+            activeColor={activeColor}
+            handleAction={handleAction}
+          />
         </svg>
       </div>
     </>

@@ -33,4 +33,3 @@ export const items: Item[] = [
 
 export const fillColor = "rgba(0,0,0,0.5)";
 export const strokeColor = "rgba(0,0,0, 0.7)";
-export const strokeColorActive = "rgba(44,176,252, 0.4)";

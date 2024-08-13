@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fillColor, strokeColor, strokeColorActive } from "../data";
+import { fillColor, strokeColor } from "../data";
 import ResetImage from "../assets/images/reset.png";
 import ShirtImage from "../assets/images/shirt.png";
 import PantsImage from "../assets/images/pants.png";
@@ -61,10 +61,11 @@ function ResetButton({ handleAction }: ResetButtonProps) {
 
 type Props = {
   isActive: boolean;
+  activeColor: string;
   handleAction: (name: string) => void;
 };
 
-function PantsButton({ handleAction, isActive }: Props) {
+function PantsButton({ handleAction, isActive, activeColor }: Props) {
   const cx = "34.5";
   const cy = "50";
   const imageSize = "3rem";
@@ -79,7 +80,7 @@ function PantsButton({ handleAction, isActive }: Props) {
         cx={`${cx}%`}
         cy={`${cy}%`}
         strokeWidth={5}
-        stroke={isActive ? strokeColorActive : strokeColor}
+        stroke={isActive ? activeColor : strokeColor}
       />
 
       <image
@@ -93,7 +94,7 @@ function PantsButton({ handleAction, isActive }: Props) {
   );
 }
 
-function ShirtButton({ handleAction, isActive }: Props) {
+function ShirtButton({ handleAction, isActive, activeColor }: Props) {
   const cx = "65.5";
   const cy = "50";
   const imageSize = "3rem";
@@ -108,7 +109,7 @@ function ShirtButton({ handleAction, isActive }: Props) {
         cx={`${cx}%`}
         cy={`${cy}%`}
         strokeWidth={5}
-        stroke={isActive ? strokeColorActive : strokeColor}
+        stroke={isActive ? activeColor : strokeColor}
       />
 
       <image
@@ -123,16 +124,29 @@ function ShirtButton({ handleAction, isActive }: Props) {
 }
 
 type CenterItemsProps = {
+  activeColor: string;
   active: { [name: string]: boolean };
   handleAction: (name: string) => void;
 };
 
-export function CenterItems({ handleAction, active }: CenterItemsProps) {
+export function CenterItems({
+  active,
+  activeColor,
+  handleAction,
+}: CenterItemsProps) {
   return (
     <>
-      <PantsButton isActive={!!active["pants"]} handleAction={handleAction} />
+      <PantsButton
+        activeColor={activeColor}
+        handleAction={handleAction}
+        isActive={!!active["pants"]}
+      />
       <ResetButton handleAction={handleAction} />
-      <ShirtButton isActive={!!active["shirt"]} handleAction={handleAction} />
+      <ShirtButton
+        activeColor={activeColor}
+        handleAction={handleAction}
+        isActive={!!active["shirt"]}
+      />
     </>
   );
 }
