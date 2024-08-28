@@ -3,6 +3,8 @@ return {
     defaultKey = "y",
 
     commands = false,
+    allowincars = false,
+    allowragdolled = false,
 
     position = { x = 70, y = 50 }, -- min: 0, max: 100 (%)
 
