@@ -1,0 +1,54 @@
+{
+    "no_variants": "No parece haber variantes para esto..",
+    "not_allowed_ped": "Este modelo de ped no permite esta opción.",
+    "already_wearing": "Ya llevas eso puesto.",
+    "nothing_to_remove": "Parece que no tienes nada que eliminar.",
+
+    "command_top": "chaqueta",
+    "command_top_description": "Cambia o alterna tu ropa chaqueta.",
+
+    "command_gloves": "guantes",
+    "command_gloves_description": "Cambia o alterna tus guantes.",
+
+    "command_shoes": "zapatos",
+    "command_shoes_description": "Cambia o alterna tus zapatos.",
+
+    "command_neck": "cuello",
+    "command_neck_description": "Cambia o alterna tu accesorio para el cuello.",
+
+    "command_vest": "chaleco",
+    "command_vest_description": "Cambia o alterna tu chaleco.",
+
+    "command_bag": "bolsa",
+    "command_bag_description": "Abre o cierra tu bolso.",
+
+    "command_mask": "mascara",
+    "command_mask_description": "Cambia o alterna tu máscara.",
+
+    "command_hair": "pelo",
+    "command_hair_description": "Cambia o peina tu cabello.",
+
+    "command_shirt": "camisa",
+    "command_shirt_description": "Cambia o alterna tu camisa.",
+
+    "command_pants": "pantalones",
+    "command_pants_description": "Cambia o alterna tus pantalones.",
+
+    "command_visor": "visor",
+    "command_visor_description": "Cambia o alterna tu gorra/visera.",
+
+    "command_hat": "gorro",
+    "command_hat_description": "Cambia o alterna tu sombrero.",
+
+    "command_glasses": "gafas",
+    "command_glasses_description": "Cambia o alterna tus gafas.",
+
+    "command_ear": "aros",
+    "command_ear_description": "Cambia o activa tu accesorio de oído.",
+
+    "command_watch": "reloj",
+    "command_watch_description": "Activa o cambia tu reloj.",
+
+    "command_bracelet": "brazalete",
+    "command_bracelet_description": "Cambia o activa tu brazalete."
+}
