@@ -22,7 +22,7 @@ end
 ---@return "male" | "female"
 local function getGender()
     local model = GetEntityModel(cache.ped)
-    return model == "mp_m_freemode_01" and "female" or "male"
+    if model == `mp_m_freemode_01` then return "male" elseif model == `mp_f_freemode_01` then return "female" end
 end
 
 ---@param playAnim boolean?
@@ -302,40 +302,53 @@ RegisterNUICallback("action", function(body, resultCallback)
     resultCallback(result)
 end)
 
+local function Check(ped)
+    if IsPedInAnyVehicle(ped) and not config.allowincars then
+        return false
+    elseif IsPedSwimmingUnderWater(ped) and not config.allowinwater then
+        return false
+    elseif IsPedRagdoll(ped) and not config.allowragdolled then
+        return false
+    end
+    return true
+end
+
 local ready = false
 local openState = false
 local function toggleOpen()
-    if not ready then
-        ready = true
+    if Check(cache.ped) then
+        if not ready then
+            ready = true
+            SendNUIMessage({
+                action = "setup",
+                data = {
+                    position = config.position,
+                    activeColor = config.activeColor
+                }
+            })
+        end
+
+        openState = not openState
+
+        SetNuiFocus(openState, openState)
+        SetNuiFocusKeepInput(openState)
+
+        if openState then
+            CreateThread(function()
+                while openState do
+                    DisableControlAction(0, 1, true)
+                    DisableControlAction(0, 2, true)
+                    DisableControlAction(0, 24, true)
+                    Wait(0)
+                end
+            end)
+        end
+
         SendNUIMessage({
-            action = "setup",
-            data = {
-                position = config.position,
-                activeColor = config.activeColor
-            }
+            action = "open",
+            data = openState
         })
     end
-
-    openState = not openState
-
-    SetNuiFocus(openState, openState)
-    SetNuiFocusKeepInput(openState)
-
-    if openState then
-        CreateThread(function()
-            while openState do
-                DisableControlAction(0, 1, true)
-                DisableControlAction(0, 2, true)
-                DisableControlAction(0, 24, true)
-                Wait(0)
-            end
-        end)
-    end
-
-    SendNUIMessage({
-        action = "open",
-        data = openState
-    })
 end
 
 lib.addKeybind({
