@@ -1,0 +1,54 @@
+{
+  "no_variants": "Es scheint keine Varianten dafür zu geben.",
+  "not_allowed_ped": "Dieses Ped-Modell erlaubt diese Option nicht.",
+  "already_wearing": "Du trägst das bereits.",
+  "nothing_to_remove": "Es scheint nichts zum Entfernen vorhanden zu sein.",
+
+  "command_top": "Oberteil",
+  "command_top_description": "Ändere oder schalte dein Oberteil um.",
+
+  "command_gloves": "Handschuhe",
+  "command_gloves_description": "Ändere oder schalte deine Handschuhe um.",
+
+  "command_shoes": "Schuhe",
+  "command_shoes_description": "Ändere oder schalte deine Schuhe um.",
+
+  "command_neck": "Hals",
+  "command_neck_description": "Ändere oder schalte dein Halsaccessoire um.",
+
+  "command_vest": "Weste",
+  "command_vest_description": "Ändere oder schalte deine Weste um.",
+
+  "command_bag": "Tasche",
+  "command_bag_description": "Öffne oder schließe deine Tasche.",
+
+  "command_mask": "Maske",
+  "command_mask_description": "Ändere oder schalte deine Maske um.",
+
+  "command_hair": "Haare",
+  "command_hair_description": "Ändere oder style deine Haare.",
+
+  "command_shirt": "Hemd",
+  "command_shirt_description": "Ändere oder schalte dein Hemd um.",
+
+  "command_pants": "Hose",
+  "command_pants_description": "Ändere oder schalte deine Hose um.",
+
+  "command_visor": "Visor",
+  "command_visor_description": "Schalte deinen Hut / Visor um oder ändere ihn.",
+
+  "command_hat": "Hut",
+  "command_hat_description": "Schalte deinen Hut um oder ändere ihn.",
+
+  "command_glasses": "Brille",
+  "command_glasses_description": "Schalte deine Brille um oder ändere sie.",
+
+  "command_ear": "Ohr",
+  "command_ear_description": "Schalte dein Ohr-Accessoire um oder ändere es.",
+
+  "command_watch": "Uhr",
+  "command_watch_description": "Schalte deine Uhr um oder ändere sie.",
+
+  "command_bracelet": "Armband",
+  "command_bracelet_description": "Schalte dein Armband um oder ändere es."
+}
