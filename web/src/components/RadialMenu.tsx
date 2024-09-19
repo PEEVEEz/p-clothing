@@ -4,6 +4,7 @@ import { CenterItems } from "./CenterItems";
 import { RadialMenuItem } from "./RadialMenuItem";
 import { action, isEnvBrowser, useNuiEvent } from "../utils";
 import { useCallback, useEffect, useRef, useState } from "react";
+import BagOffButton from "./BagoffButton";
 
 export function RadialMenu() {
   const width = 560;
@@ -92,6 +93,12 @@ export function RadialMenu() {
             active={active}
             activeColor={activeColor}
             handleAction={handleAction}
+          />
+
+          <BagOffButton
+            activeColor={activeColor}
+            handleAction={handleAction}
+            isActive={!!active["bagoff"]}
           />
         </svg>
       </div>

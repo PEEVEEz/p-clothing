@@ -105,4 +105,9 @@ return {
             off = { dict = "nmt_3_rcm-10", name = "cs_nigel_dual-10", flag = 51, dur = 1200 }
         }
     },
+    ["bagoff"] = {
+        drawable = 5,
+        table = { standalone = true, male = 0, female = 0 },
+        anim = { dict = "clothingtie", name = "try_tie_negative_a", flag = 51, dur = 1200 }
+    },
 }
