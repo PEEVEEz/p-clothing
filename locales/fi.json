@@ -4,6 +4,8 @@
   "already_wearing": "Sinulla on jo tämä päälläsi.",
   "nothing_to_remove": "Sinulla ei näytä olevan mitään poistettavaa.",
 
+  "keybind_description": "Avaa vaatemenu",
+
   "command_top": "tpaita",
   "command_top_description": "Vaihda tai poista tpaita.",
 

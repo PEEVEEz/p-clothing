@@ -4,6 +4,8 @@
   "already_wearing": "You are already wearing that.",
   "nothing_to_remove": "You don't appear to have anything to remove.",
 
+  "keybind_description": "Open clothing menu",
+
   "command_top": "top",
   "command_top_description": "Change or toggle your top clothing.",
 

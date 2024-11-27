@@ -4,6 +4,8 @@
     "already_wearing": "Ya llevas eso puesto.",
     "nothing_to_remove": "Parece que no tienes nada que eliminar.",
 
+    "keybind_description": "Abrir menú de ropa",
+
     "command_top": "chaqueta",
     "command_top_description": "Cambia o alterna tu ropa chaqueta.",
 

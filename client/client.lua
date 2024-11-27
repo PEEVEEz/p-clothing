@@ -1,4 +1,3 @@
-lib.locale()
 local lastEquipped = {}
 local config = require "shared.config"
 local drawables = require "shared.drawables"
@@ -302,60 +301,61 @@ RegisterNUICallback("action", function(body, resultCallback)
     resultCallback(result)
 end)
 
-local function Check(ped)
-    if IsPedInAnyVehicle(ped) and not config.allowincars then
+local function check()
+    if cache.vehicle and not config.allowincars then
         return false
-    elseif IsPedSwimmingUnderWater(ped) and not config.allowinwater then
+    elseif IsPedSwimmingUnderWater(cache.ped) and not config.allowinwater then
         return false
-    elseif IsPedRagdoll(ped) and not config.allowragdolled then
+    elseif IsPedRagdoll(cache.ped) and not config.allowragdolled then
         return false
     end
+
     return true
 end
 
 local ready = false
 local openState = false
 local function toggleOpen()
-    if Check(cache.ped) then
-        if not ready then
-            ready = true
-            SendNUIMessage({
-                action = "setup",
-                data = {
-                    position = config.position,
-                    activeColor = config.activeColor
-                }
-            })
-        end
+    if not check() then return end
 
-        openState = not openState
-
-        SetNuiFocus(openState, openState)
-        SetNuiFocusKeepInput(openState)
-
-        if openState then
-            CreateThread(function()
-                while openState do
-                    DisableControlAction(0, 1, true)
-                    DisableControlAction(0, 2, true)
-                    DisableControlAction(0, 24, true)
-                    Wait(0)
-                end
-            end)
-        end
-
+    if not ready then
+        ready = true
         SendNUIMessage({
-            action = "open",
-            data = openState
+            action = "setup",
+            data = {
+                position = config.position,
+                activeColor = config.activeColor
+            }
         })
     end
+
+    openState = not openState
+
+    SetNuiFocus(openState, openState)
+    SetNuiFocusKeepInput(openState)
+
+    if openState then
+        CreateThread(function()
+            while openState do
+                DisableControlAction(0, 1, true)
+                DisableControlAction(0, 2, true)
+                DisableControlAction(0, 24, true)
+                Wait(0)
+            end
+        end)
+    end
+
+    SendNUIMessage({
+        action = "open",
+        data = openState
+    })
 end
 
 lib.addKeybind({
     name = 'clothing',
     onPressed = toggleOpen,
     defaultKey = config.defaultKey,
-    description = 'open clothing menu',
+    description = locale("keybind_description"),
     onReleased = config.toggle and nil or toggleOpen
 })
 

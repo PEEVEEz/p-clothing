@@ -4,6 +4,8 @@ lua54 'yes'
 
 version "1.2.0"
 
+ox_lib "locale"
+
 author "PEEVEE"
 description "discord.gg/jRgkb5sM3w"
 
